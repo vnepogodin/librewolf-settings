@@ -8,6 +8,7 @@
         "OverridePostUpdatePage": "",
         "DisableSystemAddonUpdate": true,
         "DisableFirefoxAccounts": true,
+        "DisableFormHistory": true,
         "DisableProfileImport": false,
         "DisableMasterPasswordCreation": true,
         "DisableFirefoxStudies": true,
@@ -21,37 +22,43 @@
           "ProviderURL": "",
           "Locked": false
         },
+        "EnableTrackingProtection": {
+            "Value": true,
+            "Locked": true,
+            "Cryptomining": true,
+            "Fingerprinting": true
+        },
 
         "Bookmarks": [
               {
                 "Title": "Library",
                 "URL": "chrome://browser/content/places/places.xul",
                 "Placement": "menu",
-                "Folder": "LibreWolf"
+                "Folder": "LibreWolf Nightly"
               },
               {
-                "Title": "Restart LibreWolf",
+                "Title": "Restart LibreWolf Nightly",
                 "URL": "about:restartrequired",
                 "Placement": "menu",
-                "Folder": "LibreWolf"
+                "Folder": "LibreWolf Nightly"
               },
               {
                 "Title": "Advanced Preferences",
                 "URL": "about:config",
                 "Placement": "menu",
-                "Folder": "LibreWolf"
+                "Folder": "LibreWolf Nightly"
               },
               {
                 "Title": "All about pages",
                 "URL": "about:about",
                 "Placement": "menu",
-                "Folder": "LibreWolf"
+                "Folder": "LibreWolf Nightly"
               },
               {
-                "Title": "LibreWolf Profiles",
+                "Title": "LibreWolf Nightly Profiles",
                 "URL": "about:profiles",
                 "Placement": "menu",
-                "Folder": "LibreWolf"
+                "Folder": "LibreWolf Nightly"
               }
         ],
 
@@ -62,7 +69,7 @@
 
         "Extensions": {
             "Install": [
-                "https://addons.cdn.mozilla.net/user-media/addons/607454/ublock_origin-1.33.2-an+fx.xpi"
+                "https://github.com/gorhill/uBlock/releases/download/1.34.1b1/uBlock0_1.34.1b1.firefox.signed.xpi"
             ],
             "Uninstall": [
                 "google@search.mozilla.org",
@@ -133,7 +140,7 @@
         },
 
         "SupportMenu": {
-            "Title": "LibreWolf Issue Tracker",
+            "Title": "LibreWolf Nightly Issue Tracker",
             "URL": "https://gitlab.com/vnepogodin/librewolf-settings/issues"
         }
     }
