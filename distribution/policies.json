@@ -69,7 +69,7 @@
 
         "Extensions": {
             "Install": [
-                "https://github.com/gorhill/uBlock/releases/download/1.34.1b1/uBlock0_1.34.1b1.firefox.signed.xpi"
+                "https://addons.cdn.mozilla.net/user-media/addons/607454/ublock_origin-1.34.0-an+fx.xpi"
             ],
             "Uninstall": [
                 "google@search.mozilla.org",
