@@ -1,7 +1,7 @@
-# Firejail profile for librewolf-common
+# Firejail profile for librewolf-nightly-common
 # This file is overwritten after every install/update
 # Persistent local customizations
-include librewolf-common.local
+include librewolf-nightly-common.local
 # Persistent global definitions
 # added by caller profile
 #include globals.local
@@ -9,8 +9,8 @@ include librewolf-common.local
 # noexec ${HOME} breaks DRM binaries.
 ?BROWSER_ALLOW_DRM: ignore noexec ${HOME}
 
-# Uncomment the following line (or put it in your librewolf-common.local) to allow access to common programs/addons/plugins.
-include librewolf-common-addons.inc
+# Uncomment the following line (or put it in your librewolf-nightly-common.local) to allow access to common programs/addons/plugins.
+include librewolf-nightly-common-addons.inc
 
 noblacklist ${HOME}/.pki
 noblacklist ${HOME}/.local/share/pki
