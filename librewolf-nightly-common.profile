@@ -10,7 +10,7 @@ include librewolf-nightly-common.local
 ?BROWSER_ALLOW_DRM: ignore noexec ${HOME}
 
 # Uncomment the following line (or put it in your librewolf-nightly-common.local) to allow access to common programs/addons/plugins.
-include librewolf-nightly-common-addons.inc
+#include firefox-common-addons.inc
 
 noblacklist ${HOME}/.pki
 noblacklist ${HOME}/.local/share/pki
@@ -27,6 +27,7 @@ whitelist ${DOWNLOADS}
 whitelist ${HOME}/.pki
 whitelist ${HOME}/.local/share/pki
 include whitelist-common.inc
+include whitelist-runuser-common.inc
 include whitelist-var-common.inc
 
 apparmor
@@ -34,14 +35,11 @@ caps.drop all
 # machine-id breaks pulse audio; it should work fine in setups where sound is not required.
 #machine-id
 netfilter
-# nodbus breaks various desktop integration features
-# among other things global menus, native notifications, Gnome connector, KDE connect and power management on KDE Plasma
-#nodbus
 nodvd
 nogroups
 nonewprivs
 # noroot breaks GTK_USE_PORTAL=1 usage, see https://github.com/netblue30/firejail/issues/2506.
-#noroot
+noroot
 notv
 ?BROWSER_DISABLE_U2F: nou2f
 protocol unix,inet,inet6,netlink
@@ -52,7 +50,12 @@ shell none
 #tracelog
 
 disable-mnt
-private-dev
+?BROWSER_DISABLE_U2F: private-dev
 # private-etc below works fine on most distributions. There are some problems on CentOS.
 #private-etc alternatives,asound.conf,ca-certificates,crypto-policies,dconf,fonts,group,gtk-2.0,gtk-3.0,hostname,hosts,ld.so.cache,localtime,machine-id,mailcap,mime.types,nsswitch.conf,pango,passwd,pki,pulse,resolv.conf,selinux,ssl,X11,xdg
 private-tmp
+
+# breaks various desktop integration features
+# among other things global menus, native notifications, Gnome connector, KDE connect and power management on KDE Plasma
+dbus-user none
+dbus-system none
