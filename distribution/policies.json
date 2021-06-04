@@ -42,7 +42,6 @@
                 "twitter@search.mozilla.org"
             ]
         },
-        "SearchSuggestEnabled": false,
         "SearchEngines": {
             "PreventInstalls": false,
             "Remove": [
