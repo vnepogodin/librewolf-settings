@@ -11,12 +11,11 @@ We encourage users to find **their own setup** and to use our default configurat
 - Windows -> `%USERPROFILE%\.librewolf\librewolf.overrides.cfg`
 
 ## Useful links
-- FAQ (coming soon): to help you creating your own pref file.
+- [FAQ](https://gitlab.com/librewolf-community/settings/-/wikis/FAQ): to help you creating your own pref file.
 - [LibreWolf distributions](https://gitlab.com/librewolf-community/browser)
 - [Issue tracker](https://gitlab.com/librewolf-community/settings/-/issues)
 - Our community on [gitter](https://gitter.im/librewolf-community/librewolf)
 - [Website](https://librewolf-community.gitlab.io/)
-- [Docs](https://librewolf.readthedocs.io/en/latest/)
 - [r/LibreWolf](https://www.reddit.com/r/LibreWolf/)
 
 ## Notes and thanks
