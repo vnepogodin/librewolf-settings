@@ -7,9 +7,7 @@
         "OverridePostUpdatePage": "",
         "DisableSystemAddonUpdate": true,
         "DisableFirefoxAccounts": true,
-        "DisableFormHistory": true,
         "DisableProfileImport": false,
-        "DisableMasterPasswordCreation": true,
         "DisableFirefoxStudies": true,
         "DisableTelemetry": true,
         "DisableFeedbackCommands": true,
@@ -32,7 +30,7 @@
         },
         "Extensions": {
             "Install": [
-                "https://addons.cdn.mozilla.net/user-media/addons/607454/ublock_origin-1.37.2-an+fx.xpi"
+                "https://addons.cdn.mozilla.net/user-media/addons/607454/ublock_origin-1.38.6-an+fx.xpi"
             ],
             "Uninstall": [
                 "google@search.mozilla.org",
