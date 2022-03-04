@@ -1,6 +1,243 @@
 This changelog will be used from now on to document changes in a precise manner, with a list of changes for each setting version.
 Setting versions are documented using the pref `librewolf.cfg.version`, available in about:config.
 
+# 5.5
+
+**target commit**:
+
+**base librewolf version**: 97.x
+
+**References**:
+- showing the insecure connection text is redundant as there's already the lock UI for http websites.
+- `browser.places.speculativeConnect.enabled` controls speculative connections for bookmarks and will be fully effective only once we hit v98.
+- we will no longer disable history but we'll clear it on close. [reasoning](https://gitlab.com/librewolf-community/settings/-/issues/135).
+- [download annoyances](https://gitlab.com/librewolf-community/settings/-/issues/144).
+
+**Notes**: the settings have been re-organized and they should also be documented a bit better now.
+
+#### Removed preferences
+```
+defaultPref("security.insecure_connection_text.enabled", true); // display http websites as insecure in the ui
+defaultPref("places.history.enabled", true);
+```
+
+#### Added preferences
+```
+defaultPref("browser.places.speculativeConnect.enabled", false);
+defaultPref("browser.download.alwaysOpenPanel", false); // do not expand toolbar menu for every download, we already have enough interaction
+```
+
+#### Changed preferences
+```
+pref("security.tls.version.enable-deprecated", false); // make TLS downgrades session only by enforcing it with pref()
+```
+
+## 5.4
+
+**target commit**:
+
+**base librewolf version**: 96.x
+
+**References**:
+- [serve custom uBO assets](https://gitlab.com/librewolf-community/settings/-/issues/134)
+
+
+#### Added preferences
+```
+defaultPref("librewolf.uBO.assetsBootstrapLocation", "https://gitlab.com/librewolf-community/browser/source/-/raw/main/assets/uBOAssets.json");
+```
+
+#### Changed preferences
+```
+defaultPref("privacy.query_stripping.strip_list", "__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid");
+```
+
+## 5.3
+
+**target commit**: c256656f377d3c15a8c7537c65f45dc802904df7
+
+**base librewolf version**: 96.x
+
+**References**:
+- [disable sync differently](https://gitlab.com/librewolf-community/settings/-/issues/132);
+- [remove tracking query params](https://gitlab.com/librewolf-community/settings/-/issues/128);
+
+
+#### Added preferences
+```
+defaultPref("identity.fxaccounts.enabled", false); // sync and firefox account
+defaultPref("privacy.query_stripping.enabled", true);
+defaultPref("privacy.query_stripping.strip_list", "__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oly_anon_id oly_enc_id rb_clickid s_cid vero_conv vero_id wickedid yclid");
+```
+
+## 5.2
+
+**target commit**: f3b4414d30953d1ea3eb64a9d75c62c242ee991b
+
+**base librewolf version**: 96.x
+
+**References**:
+- [fix console issue](https://gitlab.com/librewolf-community/settings/-/issues/129)
+
+#### Added preferences
+```
+defaultPref("devtools.selfxss.count", 0);
+```
+
+## 5.1
+
+**target commit**: f28b218e97acec8935c0c868863a9f4b6a061a39 and 60221803c46bf5cf2cbc5d77035927f9fd249e6a
+
+**base librewolf version**: 96.x
+
+**References**:
+- [fix language issue](https://gitlab.com/librewolf-community/settings/-/issues/125)
+
+#### Added preferences
+```
+pref("intl.accept_languages", "en-US, en");
+```
+
+#### Removed preferences
+```
+defaultPref("intl.locale.requested", "en-US");
+defaultPref("privacy.spoof_english", 2);
+defaultPref("browser.search.region", "US"); // set a default search region for all users
+defaultPref("extensions.getAddons.langpacks.url", ""); // prevent users from adding lang packs, which would cause leaks
+```
+
+#### Changed preferences
+```
+pref("javascript.use_us_english_locale", true);
+```
+
+## 5.0
+
+**target commit**: from 8a98176400e2e44ae1138ea8bdc1991250f75b8e to b219a75b4a0d72b519ce386406f45acead940c9a
+
+**base librewolf version**: 96.x
+
+**References**:
+- [extension auto-updates](https://gitlab.com/librewolf-community/settings/-/issues/116)
+- [remove all the OS specific prefs](https://gitlab.com/librewolf-community/settings/-/issues/124)
+- [service workers and push](https://gitlab.com/librewolf-community/settings/-/issues/115)
+
+#### Added preferences
+```
+defaultPref("privacy.partition.serviceWorkers", true); // isolate service workers
+```
+
+#### Removed preferences
+```
+defaultPref("extensions.update.enabled", false); // disable automatic checks for extension updates
+defaultPref("extensions.update.autoUpdateDefault", false); // disable automatic installs of extension updates
+defaultPref("browser.tabs.loadBookmarksInTabs", true);
+defaultPref("clipboard.autocopy", false);
+defaultPref("dom.popup_maximum", 4);
+defaultPref("general.autoScroll", false);
+defaultPref("devtools.selfxss.count", 0); // was set because of https://gitlab.com/librewolf-community/browser/linux/-/issues/80
+defaultPref("dom.push.enabled", false); // disable push notifications
+defaultPref("dom.push.serverURL", ""); // default "wss://push.services.mozilla.com/"
+defaultPref("dom.serviceWorkers.enabled", false); // disable service workers, must enable for push notifications
+```
+
+## 4.0
+
+**target commit**: 9003f029f8fe087cde5bb081d51ab82340948874
+
+**base librewolf version**: 95.x
+
+**References**:
+- [review webrtc](https://gitlab.com/librewolf-community/settings/-/issues/108).
+- [stop disabling geo api](https://gitlab.com/librewolf-community/settings/-/issues/102).
+- [deprecate RFP dark mode](https://gitlab.com/librewolf-community/browser/common/-/issues/56).
+- `offlineApps` change in 3.1 did not respect exceptions, so revert it.
+- uncomment prefs to enable CRL without OCSP fallback, although they will fully work only when [this issue is closed](https://gitlab.com/librewolf-community/browser/common/-/issues/57).
+- we decided to force a larger new window size by default, to improve usability for RFP users while still keeping a rounded value. see [this comment](https://gitlab.com/librewolf-community/settings/-/issues/104#note_752186737).
+
+#### Added preferences
+```
+defaultPref("privacy.window.maxInnerWidth", 1600);
+defaultPref("privacy.window.maxInnerHeight", 900);
+```
+
+#### Removed preferences
+```
+defaultPref("media.peerconnection.enabled", false);
+lockPref("privacy.override_rfp_for_color_scheme", false);
+defaultPref("geo.enabled", false);
+defaultPref("permissions.default.geo", 2);
+defaultPref("privacy.clearOnShutdown.offlineApps", true);
+defaultPref("privacy.cpd.offlineApps", true);
+```
+
+#### Changed preferences
+```
+defaultPref("security.remote_settings.crlite_filters.enabled", true);
+defaultPref("security.pki.crlite_mode", 2);
+```
+
+## 3.2
+
+**target commit**: 19e59813ed483de7ffc8a219da96eb18a942eb01
+
+**base librewolf version**: 94.x
+
+**References**:
+- block the new firefox suggests feature in full.
+- enforce a sane value for manual sanitizing.
+
+**Notes**: the suggest prefs might be overkill, we should try to trim to the bare minimum in the next release.
+
+#### Added preferences
+```
+lockPref("browser.urlbar.quicksuggest.enabled", false); // disable suggest and hide its ui
+lockPref("browser.urlbar.suggest.quicksuggest.nonsponsored", false); // disable suggestions from firefox
+lockPref("browser.urlbar.suggest.quicksuggest.sponsored", false); // disable sponsored suggestions
+lockPref("browser.urlbar.quicksuggest.dataCollection.enabled", false); // default
+defaultPref("privacy.sanitize.timeSpan", 0);
+```
+#### Changed preferences
+```
+lockPref("browser.urlbar.quicksuggest.scenario", "history"); // prevent opt-in, doesn't work alone
+```
+
+## 3.1
+
+**target commit**: 6844d4ad1c9ad8bb3ffdc29e0a607c21c0559da4 and 67e6a00b719ecd52782a724cd09a9f08fa4577c0
+
+**base librewolf version**: 94.x
+
+**References**:
+- the added prefs are all defense in depth.
+- `drawInTitlebar` was causing errors for some users, the bug was reproduced. Linux users might experience a different toolbar behavior because of this change.
+- the default value for scopes seems like a better choice than changing it.
+- `offlineApps` can be safely cleared without using logins, in fact it was most likely cleared by other sanitazion techniques regardless.
+
+**Notes**: please notify users about the new website, thanks to @maltejur for helping with the migration.
+
+#### Added preferences
+```
+defaultPref("webchannel.allowObject.urlWhitelist", ""); // remove webchannel whitelist
+lockPref("toolkit.telemetry.coverage.opt-out", true); // hidden
+defaultPref("privacy.cpd.offlineApps", true); // for consistency with clearOnShutdown prefs
+```
+
+#### Removed preferences
+```
+defaultPref("extensions.autoDisableScopes", 11); // bring back to default
+defaultPref("browser.tabs.drawInTitlebar", true); // bring back to default
+```
+
+#### Changed preferences
+```
+defaultPref("privacy.clearOnShutdown.offlineApps", true); // can be cleared
+defaultPref("app.support.baseURL", "https://librewolf.net/docs/faq/#");
+defaultPref("browser.search.searchEnginesURL", "https://librewolf.net/docs/faq/#how-do-i-add-a-search-engine");
+defaultPref("browser.geolocation.warning.infoURL", "https://librewolf.net/docs/faq/#how-do-i-enable-location-aware-browsing");
+defaultPref("app.feedback.baseURL", "https://librewolf.net/#questions");
+```
+
 ## 3.0
 
 **target commit**: f0a2d5d70657cc87348282d6faaf72edff8bf304 and 4e0895a299ec99066f119d8ce1a2923fc91aa465
@@ -164,7 +401,7 @@ pref("browser.urlbar.quicksuggest.scenario", ""); // disable firefox suggests an
 
 #### Commented preferences
 ```
-// pref("network.trr.mode", 2); // previously uncommented defaultPref with value 5 
+// pref("network.trr.mode", 2); // previously uncommented defaultPref with value 5
 // pref("network.trr.uri", "https://dns.quad9.net/dns-query"); // previously uncommented defaultPref with empty value
 ```
 
@@ -188,7 +425,7 @@ defaultPref("browser.urlbar.speculativeConnect.enabled", false);
 defaultPref("browser.contentblocking.report.lockwise.enabled", false);
 defaultPref("browser.contentblocking.report.monitor.enabled", false);
 defaultPref("network.dns.disablePrefetch", true);
-defaultPref("security.ssl.treat_unsafe_negotiation_as_broken",	true);
+defaultPref("security.ssl.treat_unsafe_negotiation_as_broken",  true);
 defaultPref("browser.startup.blankWindow", false);
 defaultPref("extensions.htmlaboutaddons.recommendations.enabled", false);
 defaultPref("extensions.systemAddon.update.enabled", false);
@@ -335,4 +572,5 @@ lockPref("privacy.override_rfp_for_color_scheme", false);
 
 **base librewolf version**: 89.x
 
-This is the initial release from which we start tagging and versioning settings.
+This is the initial release from which we start tagging and versioning settings. For previous changes see
+[here](https://gitlab.com/librewolf-community/settings/-/blob/master/docs/changelog-legacy.md).
